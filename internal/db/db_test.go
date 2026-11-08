@@ -46,6 +46,7 @@ var dbInstance db.DbIf
 
 func TestDb(t *testing.T) {
 	t.Run("Bbolt DB", testBboltDb)
+	t.Run("Custom DB", testCustomDb)
 }
 
 func testBboltDb(t *testing.T) {
@@ -66,7 +67,7 @@ func testBboltDb(t *testing.T) {
 
 func testCustomDb(t *testing.T) {
 	var err error
-	dbInstance, err = db.NewDb("custom") // TODO: change "custom" to the actual name of your custom DB implementation
+	dbInstance, err = db.NewDb("sqlite")
 	if err != nil {
 		t.Fatalf("Failed to create DB instance: %v", err)
 	}
