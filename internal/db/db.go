@@ -3,7 +3,8 @@ package db
 import "fmt"
 
 var (
-	NSF_DB_PATH = "/tmp/nsf.db"
+	NSF_DB_PATH    = "/tmp/nsf.db"
+	CUSTOM_DB_PATH = "/tmp/nsf_custom.db"
 )
 
 type DbIf interface {
@@ -22,7 +23,9 @@ func NewDb(dbType string) (DbIf, error) {
 	switch dbType {
 	case "bbolt":
 		return newBboltDb(NSF_DB_PATH)
-	// TODO: Add support for the customDb type here
+	case "sqlite":
+		return newSqliteDb(CUSTOM_DB_PATH)
 	}
+
 	return nil, fmt.Errorf("unsupported db type: %s", dbType)
 }
